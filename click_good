@@ -1,0 +1,10 @@
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+
+driver = webdriver.Chrome()
+driver.get("https://en-gage.net/user/search/?from=top&keyword=%E9%96%8B%E7%99%BA&employ%5B%5D=1&salary_NaN=0&span=0&PK=&token=654d7b23ef16b&area=23&job=&distanceIndex=&wish_no=#/")
+good = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, 'md_btn.md_btn--round.md_btn--big.md_btn--fav')))
+print(good.text)

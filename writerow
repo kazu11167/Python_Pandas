@@ -1,0 +1,18 @@
+from selenium import webdriver
+import csv
+driver = webdriver.Chrome()
+driver.get("https://www.google.co.jp")
+search_bar = driver.find_element(By.NAME, 'q')
+search_bar.send_keys("python")
+search_bar.submit()
+sleep(15)
+for elem_h3 in driver.find_elements(By.XPATH, '//h3'):
+#    elem_a = elem_h3.find_elements(By.XPATH, '..')  
+    print(elem_h3.text)
+#    print(elem_a.get_attribute('href'))
+f = open('output.csv', 'w')
+writer = csv.writer(f, lineterminator='\n')
+csvlist = []
+csvlist.append(elem_h3.text)
+writer.writerow(csvlist)
+f.close()

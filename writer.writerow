@@ -1,0 +1,21 @@
+from selenium import webdriver
+from time import sleep
+from selenium.webdriver.chrome.service import Service # 1) Serviceのインポート
+from selenium.webdriver.chrome.options import Options
+
+from selenium import webdriver
+driver = webdriver.Chrome()
+driver.get("https://www.google.co.jp")
+search_bar = driver.find_element(By.NAME, 'q')
+search_bar.send_keys("python")
+search_bar.submit()
+sleep(15)
+
+f=open("output.csv", "w")
+writer = csv.writer(f, lineterminator='\n')
+csvlist = []
+for elem_h3 in driver.find_elements(By.XPATH, '//h3'):
+    elem_a = elem_h3.find_element(By.XPATH, '..')  
+    writer.writerow(elem_a.text)
+print(csvlist)
+f.close()

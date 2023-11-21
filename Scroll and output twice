@@ -1,0 +1,53 @@
+from selenium import webdriver
+from time import sleep
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
+
+driver = webdriver.Chrome()
+driver.get('https://www.google.co.jp')
+ 
+search_bar = driver.find_element(By.NAME, 'q')
+search_bar.send_keys("東京")
+search_bar.submit()
+i = 0
+while True:
+    i += 1
+    if driver.find_element(By.CLASS_NAME, 'T7sFge.sW9g3e.VknLRd'):
+        print("yes")
+        driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+        sleep(3)
+    else:
+        print("no")
+    if i > 10:
+        break
+f=open("output.csv", "w")
+#writer = csv.writer(f)
+writer = csv.writer(f, lineterminator='\n')
+csvlist = []
+item = 1
+sleep(3)
+for elem_h3 in driver.find_elements(By.XPATH, '//h3'):
+    elem_a = elem_h3.find_element(By.XPATH, '..')  
+    print(elem_h3.text)
+    print(elem_a.get_attribute('href'))
+    csvlist.append(str(item))
+    csvlist.append(elem_h3.text)
+    csvlist.append(elem_a.get_attribute("href"))
+    writer.writerow(csvlist)
+    item = item + 1
+
+
+next_link = driver.find_element(By.CLASS_NAME, 'T7sFge.sW9g3e.VknLRd')
+driver.get(next_link.get_attribute('href'))
+print("2term")
+for elem_h3 in driver.find_elements(By.XPATH, '//h3'):
+    elem_a = elem_h3.find_element(By.XPATH, '..')  
+    print(elem_h3.text)
+    print(elem_a.get_attribute('href'))
+    csvlist.append(str(item))
+    csvlist.append(elem_h3.text)
+    csvlist.append(elem_a.get_attribute("href"))
+#    csvlist.append(str("\n"))
+    writer.writerow(csvlist)
+    item = item + 1
+f.close()

@@ -6,45 +6,22 @@ PASSWORD = 'Kazuhiro0405'
 driver = webdriver.Chrome()
 error_flg = False
 target_url = 'https://www.instagram.com'
-#target_url = 'https://www.instagram.com/hipahipa_phuket'
 driver.get(target_url)  
 sleep(5)
-
-#try:
-#    login_button = driver.find_element_by_link_text('ログイン')
-#    login_button = driver.find_element(By.LINK_TEXT, "ログイン")
-#    login_button = driver.find_element(By.CLASS_NAME, "_acan._acap._acas._aj1-._ap30")    
-#    print(login_button)
-#    login_button.click()
-#    sleep(3)
-#except Exception:
-#    error_flg = True
-#    print('ログインボタン押下時にエラーが発生しました。')
-
 try:
     username_input = driver.find_element(By.XPATH, '//input[@aria-label="電話番号、ユーザーネーム、メールアドレス"]')
     username_input.send_keys(USERNAME)
     sleep(1)
-
     password_input = driver.find_element(By.XPATH, '//input[@aria-label="パスワード"]')
     password_input.send_keys(PASSWORD)
     sleep(1)
-
     username_input.submit()
     sleep(1)
-
 except Exception:
     print('ユーザー名、パスワード入力時にエラーが発生しました。')
     error_flg = True
-
 sleep(3)
-
-#atode_button = WebDriverWait(driver, 10).until(lambda x: x.find_element(By.LINK_TEXT, "後で"))
 atode_button = WebDriverWait(driver, 10).until(lambda x: x.find_element(By.CLASS_NAME, "_ac8f"))
-#atode_button = driver.find_element(By.LINK_TEXT, "後で")
-#atode_button = driver.find_element(By.CLASS_NAME, "_ac8f")
-print(atode_button)
-#atode_button.submit()
 atode_button.click()
 atode_button1 = WebDriverWait(driver, 10).until(lambda x: x.find_element(By.CLASS_NAME, "_a9--._ap36._a9_1"))
 atode_button1.click()
